@@ -4,41 +4,26 @@ using namespace std;
 
 //base class 1
 class User{
-	private:
+	protected:
 		string name , joiningDate;
 		
 	public:
 		//default constructor
 		User(){
-			setName("No Name");
-			setJoiningDate("##-##-####");
+			name = "No Name";
+			joiningDate = "##-##-####";
 		}
 		
 		//destructor
 		virtual ~User(){
 			cout<<"\nUser destructor called.";
 		}
-		
-		//setters
-		void setName(const string& n){
-			name = n;
-		}
-		void setJoiningDate(const string& jD){
-			joiningDate = jD;
-		}
-		
-		//getters
-		string getName()const{
-			return name;
-		}
-		string getJoiningDate()const{
-			return joiningDate;
-		}
+
 };
 
 //base class 2
 class Payment{
-	private:
+	protected:
 		string currency , doneOn;
 		int paymentID;
 		float amount;
@@ -46,10 +31,10 @@ class Payment{
 	public:
 		//default constructor
 		Payment(){
-			setPaymentID(0);
-			setCurrency("Pkr");
-			setAmount(0.0f);
-			setDoneOn("##-##-####");
+			paymentID = 0;
+			currency = "Pkr";
+			amount = 0.0f;
+			doneOn = "##-##-####";
 		}
 		
 		//destructor
@@ -57,37 +42,10 @@ class Payment{
 			cout<<"\nPayment destructor called.";
 		}
 		
-		//setters
-		void setPaymentID(int pID){
-			paymentID = pID;
-		}
-		void setCurrency(const string& cur){
-			currency = cur;
-		}
-		void setAmount(float am){
-			amount = am;
-		}
-		void setDoneOn(const string& dOn){
-			doneOn = dOn;
-		}
-		
-		//getters
-		int getPaymentID()const{
-			return paymentID;
-		}
-		string getCurrency()const{
-			return currency;
-		}
-		float getAmount()const{
-			return amount;
-		}
-		string getDoneOn()const{
-			return doneOn;
-		}
 };
 
 //derived class inherit both base classes
-class Gym : public User , public Payment{
+class Gym : protected User , protected Payment{
 	public:
 		//deafulat constructor
 		Gym(){
@@ -95,12 +53,12 @@ class Gym : public User , public Payment{
 		
 		//parameterized constructor
 		Gym(const string& n , const string& jD , int pID , const string& cur , float am , const string& dOn){
-			setName(n);
-			setJoiningDate(jD);
-			setPaymentID(pID);
-			setCurrency(cur);
-			setAmount(am);
-			setDoneOn(dOn);
+			name = "No Name";
+			joiningDate = "##-##-####";
+			paymentID = 0;
+			currency = "Pkr";
+			amount = 0.0f;
+			doneOn = "##-##-####";
 		}
 		
 		//destructor
@@ -110,23 +68,23 @@ class Gym : public User , public Payment{
 		
 		//member functions
 		void addUser(const string& n , const string& jD){
-			setName(n);
-			setJoiningDate(jD);
+			name = n;
+			joiningDate = jD;
 		}
 		void addPayment(int pID , const string& cur , float am , const string& dOn){
-			setPaymentID(pID);
-			setCurrency(cur);
-			setAmount(am);
-			setDoneOn(dOn);
+			paymentID = pID;
+			currency = cur;
+			amount = am;
+			doneOn = dOn;
 		}
 		
 		//display function
 		void displayGym(){
-			cout<<"\nName\t\t:\t"<<getName();
-			cout<<"\nJoining Date\t:\t"<<getJoiningDate();
-			cout<<"\nPayment ID\t:\t"<<getPaymentID();
-			cout<<"\nAmount\t\t:\t"<<getAmount()<<" "<<getCurrency();
-			cout<<"\nPayment date\t:\t"<<getDoneOn();
+			cout<<"\nName\t\t:\t"<<name;
+			cout<<"\nJoining Date\t:\t"<<joiningDate;
+			cout<<"\nPayment ID\t:\t"<<paymentID;
+			cout<<"\nAmount\t\t:\t"<<amount<<" "<<currency;
+			cout<<"\nPayment date\t:\t"<<doneOn;
 		}
 };
 
@@ -179,8 +137,8 @@ void assignValues(Gym* gym , int size){
 		
 		pID = i+1001;
 		
-		cout<<"Currency: ";
-		getline(cin , cur);
+		cout<<"Currency (Pkr, Usd, etc): ";
+		getline(cin , cur); 
 		
 		cout<<"Amount: ";
 		cin>>am;
